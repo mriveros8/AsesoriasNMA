@@ -1,0 +1,39 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registrar Profesional en Lista</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/registros.css' %}">
+
+</head>
+<body>
+<br></br>
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Registrar Profesional en Lista</h2>
+                    
+<form method = "POST">
+
+    {% csrf_token %}
+     
+    {{ form | crispy }}
+
+    <div class="d-flex justify-content-end">
+        <a href="{% url 'aseguradoraNMA:mantenedor_profesional' %}" class="btn btn btn-primary">Volver a Mantenedor</a>
+        &nbsp;
+        <button type="submit" class="btn btn btn-primary">Crear</button>
+    </div>
+    
+</div>
+</div>
+</div>
+</div>
+</form>
+
+</body>

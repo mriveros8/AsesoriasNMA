@@ -1,0 +1,74 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Listado de Profesionales</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/mantenedor.css' %}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+    <center><h1>Listado de Profesionales</h1></center>
+
+    <div class="container">
+
+        <a href="{% url 'aseguradoraNMA:crear_profesional' %}" class="btn btn btn-primary">Crear Nuevo</a>
+        <a href="{% url 'aseguradoraNMA:index' %}" class="btn btn btn-primary">Volver a Inicio</a>
+
+        <table class="table table-bordered table-info mt-5 text-center">
+        <thead>
+            <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Funciones</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for Profesional in profesional %}
+                <tr>
+                    <th>{{ Profesional.id }}</th>
+                    <td>{{ Profesional.nombre_prof }}</td>
+                    <td>{{ Profesional.apellido_prof }}</td>
+                    <td>{{ Profesional.correo_prof }}</td>
+                    <td>{{ Profesional.telefono_prof }}</td>
+                    <td>
+                        <a href="{% url 'aseguradoraNMA:editar_profesional' Profesional.id %}" class="btn btn-success">Editar</a>
+                        <a href="{% url 'aseguradoraNMA:eliminar_profesional' Profesional.id %}" class="btn btn-primary">Eliminar</a>
+                    </td> 
+                </tr> 
+            {% endfor %}
+        </tbody>
+        </table>
+        <div id="contenido">
+            {% if messages %}
+                {% for m in messages %}
+                <script>
+                    Swal.fire({
+                        "title":"Proceso Realizado",
+                        "text": "{{m}}",
+                        "icon": "success"
+                    })
+                </script>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+</body>
+
+
+
+
+    
+
+
+

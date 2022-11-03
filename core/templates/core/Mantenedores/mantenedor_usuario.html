@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mantenedor de Usuarios</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/mantenedor.css' %}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+    <center><h1>Mantenedor de Usuarios</h1></center>
+
+    <div class="container">
+
+        <a href="{% url 'aseguradoraNMA:crear_usuario' %}" class="btn btn btn-primary">Crear Nuevo</a>
+        <a href="{% url 'aseguradoraNMA:index' %}" class="btn btn btn-primary">Volver a Inicio</a>
+
+        <table class="table table-bordered table-info mt-5 text-center">
+        <thead>
+            <tr>
+            <th>ID Usuario</th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Nombre Empresa</th>
+            <th>Rut</th>
+            <th>Rubro</th>
+            <th>Funciones</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for Usuario in usuario %}
+                <tr>
+                    <th>{{ Usuario.id }}</th>
+                    <td>{{ Usuario.username }}</td>
+                    <td>{{ Usuario.first_name }}</td>
+                    <td>{{ Usuario.last_name }}</td>
+                    <td>{{ Usuario.nombre_empresa }}</td>
+                    <td>{{ Usuario.rut }}</td>
+                    <td>{{ Usuario.rubro }}</td>
+                    <td>
+                        <a href="{% url 'aseguradoraNMA:detalle_usuario' Usuario.id %}" class="btn btn-danger m-1">Ver mas</a>
+                        <a href="{% url 'aseguradoraNMA:editar_usuario' Usuario.id %}" class="btn btn-success">Editar</a>
+                        <a href="{% url 'aseguradoraNMA:eliminar_usuario' Usuario.id %}" class="btn btn-primary">Eliminar</a>
+                    </td> 
+                </tr> 
+            {% endfor %}
+        </tbody>
+        </table>
+        <div id="contenido">
+            {% if messages %}
+                {% for m in messages %}
+                <script>
+                    Swal.fire({
+                        "title":"Proceso Realizado",
+                        "text": "{{m}}",
+                        "icon": "success"
+                    })
+                </script>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+
+    </div>
+</body>

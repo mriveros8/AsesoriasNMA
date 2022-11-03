@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detalle Cliente</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/estilos.css' %}">
+    
+
+</head>
+<body>
+<br></br>
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+<center><h2>Detalle Asesoria</h2><center>
+<div class="container">
+<p>{{ detalle_asesoria.id }}</p>
+<p>{{ detalle_asesoria.fecha_asesoria}}</p>
+<p>{{ detalle_asesoria.hora_asesoria }}</p>
+<p>{{ detalle_asesoria.nombre_cliente }}</p>
+<p>{{ detalle_asesoria.rut_cliente }}</p>
+<p>{{ detalle_asesoria.tipo_asesoria }}</p>
+<p>{{ detalle_asesoria.problemas_encontrados }}</p>
+<p>{{ detalle_asesoria.asistentes }}</p>
+</div>
+</div>
+<a href="{% url 'aseguradoraNMA:mantenedor_asesoria' %}" class="btn btn btn-primary">Volver a Mantenedor</a>
+</div>
+</div>
+</div>
+</body>

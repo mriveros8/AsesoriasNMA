@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detalle Cliente</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/estilos.css' %}">
+
+</head>
+<body>
+<br></br>
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+<center><h2>Detalle Cliente</h2><center>
+<div class="container">
+   <p>{{ detalle_usuario.id }}</p>
+   <p>{{ detalle_usuario.first_name }}</p>
+   <p>{{ detalle_usuario.last_name }}</p>
+   <p>{{ detalle_usuario.rut }}</p>
+   <p>{{ detalle_usuario.nombre_empresa }}</p>
+   <p>{{ detalle_usuario.email }}</p>
+   <p>{{ detalle_usuario.direccion }}</p>
+   <p>{{ detalle_usuario.telefono }}</p>
+   <p>{{ detalle_usuario.rubro }}</p>
+</div>
+</div>
+<a href="{% url 'aseguradoraNMA:editar_usuario' Usuario.id %}" class="btn btn-success">Editar</a>
+</div>
+</div>
+</div>
+</body>

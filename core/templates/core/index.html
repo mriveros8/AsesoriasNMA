@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with Ollie landing page.">
+    <meta name="author" content="Devcrud">
+    <title>Asesorias NMA</title>
+    {% load static %}
+    <!-- font icons -->
+    <link rel="stylesheet" href="{% static 'core/vendors/themify-icons/css/themify-icons.css' %}">
+    
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="{% static 'core/vendors/owl-carousel/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'core/vendors/owl-carousel/css/owl.theme.default.css' %}">
+
+    <!-- Bootstrap + Ollie main styles -->
+	<link rel="stylesheet" href="{% static 'core/css/ollie.css' %}">
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <nav id="scrollspy" class="navbar navbar-light bg-light navbar-expand-lg fixed-top" data-spy="affix" data-offset-top="20">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="assets/imgs/brand.svg" alt="" class="brand-img"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:index' %}" class="nav-link">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:servicios' %}" class="nav-link">Servicios</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Sobre Nosotros</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contacto</a>
+                    </li>
+                    {% endif %}
+
+					{% load templatetagname %}
+                    {% if user.is_authenticated %}
+                    {% if request.user|has_group:"Clientes" %} 
+
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:index' %}" class="nav-link">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:servicios' %}" class="nav-link">Servicios</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:solicitar_asesoria' %}">Solicitar Asesoria</a>
+                    </li> 
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contacto</a>
+                    </li>
+
+					{% endif %}
+                    {% endif %}
+
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:index' %}" class="nav-link">Inicio</a>
+                    </li>
+                    {% endif %}
+
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:servicios' %}" class="nav-link">Servicios</a>
+                    </li>
+                    {% endif %}
+
+                    <!--<li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:registrar_usuario' %}">Registrar Profesional</a>
+                    </li>-->
+
+                    <!--{% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_usuario' %}">Gestion de Usuarios</a>
+                    </li> 
+                    {% endif %}-->
+
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:listar_capacitacion' %}">Planificar Capacitaciones</a>
+                    </li> 
+                    {% endif %}
+
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_visita' %}">Planificar Visitas</a>
+                    </li> 
+                    {% endif %}
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_asesoria' %}">Planificar Asesorias</a>
+                    </li> 
+                    {% endif %}
+
+                {% if user.is_authenticated and user.is_staff %}
+
+                <li class="nav-item">
+                    <a href="{% url 'aseguradoraNMA:index' %}" class="nav-link">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'aseguradoraNMA:servicios' %}" class="nav-link">Servicios</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_profesional' %}">Listado de Profesionales</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_usuario' %}">Gestion de Usuarios</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_contrato' %}">Gestion de Contratos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:listar_capacitacion' %}">Planificar Capacitaciones</a>
+                </li> 
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_visita' %}">Planificar Visitas</a>
+                </li> 
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_asesoria' %}">Planificar Asesorias</a>
+                </li>
+    
+
+                {% endif %}
+
+
+                    {% if user.is_authenticated %}
+                   <li>
+                <a href="#"> Usuario: {{ user.username }}</a>
+                </li>
+                
+                <li>
+                <a class="nav-link btn btn-primary" href="{% url 'aseguradoraNMA:logout' %}">Cerrar Sesion</a>
+                </li>
+                    {% endif %}
+
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item ml-0 ml-lg-4">
+                            <a class="nav-link btn btn-primary" href="{% url 'aseguradoraNMA:login' %}">Iniciar Sesión</a>
+                        </li> 
+                    {% endif %}
+
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item ml-0 ml-lg-4">
+                            <a class="nav-link btn btn-primary" href="{% url 'aseguradoraNMA:registro' %}">Registrarse</a>
+                        </li> 
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <header id="home" class="header">
+        <div class="overlay"></div>
+
+        <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">  
+            <div class="container">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h1 class="carousel-title"><br> Asesorate con Nosotros</h1>
+                            {% load templatetagname %}
+                            {% if user.is_authenticated %}
+                                {% if request.user|has_group:"Clientes" %} 
+                                    <p style="color: white;">esta autenticado un Cliente!</p>
+                                {% endif %}
+                                {% if request.user|has_group:"Administrador" %} 
+                                <p style="color: white;">esta autenticado el administrador!</p>
+                            {% endif %}
+                            {% if request.user|has_group:"Profesionales" %} 
+                                <p style="color: white;">esta autenticado un Profesional!</p>
+                             {% endif %}
+                            {% endif %}
+                            <button class="btn btn-primary btn-rounded">Saber más</button>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h1 class="carousel-title">Evita <br>Accidentes </h1>
+                            <button class="btn btn-primary btn-rounded">Saber más</button>
+                          </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h1 class="carousel-title">Protege<br>la vida de tus trabajadores</h1>
+                            <button class="btn btn-primary btn-rounded">Saber más</button>
+                          </div>
+                    </div>
+                </div>
+            </div>        
+        </div>
+
+        <div class="infos container mb-4 mb-md-2">
+            <div class="title">
+                <h6 class="subtitle font-weight-normal">Asesorias en prevencion de riesgos laborales</h6>
+                <h5>Asesorias NMA</h5>
+                <p class="font-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            </div>
+            <div class="socials text-right">
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <a class="d-block subtitle"><i class="ti-microphone pr-2"></i> +56 2 45678901</a>
+                        <a class="d-block subtitle"><i class="ti-email pr-2"></i> asesoriasNMA@gmail.com</a>
+                    </div>
+                    <div class="col">
+                        <h6 class="subtitle font-weight-normal mb-2">Redes Sociales</h6>
+                        <div class="social-links">
+                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-facebook"></i></a>
+                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-twitter-alt"></i></a>
+                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-google"></i></a>
+                            <a href="javascript:void(0)" class="link pr-1"><i class="ti-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" id="about">
+
+        <div class="container">
+
+            <div class="row align-items-center mr-auto">
+                <div class="col-md-4">
+                    <h6 class="xs-font mb-0">Manten el ambiente de trabajo seguro.</h6>
+                    <h3 class="section-title">Sobre Nosotros</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum sunt, unde aperiam aliquid quia repudiandae, ex harum quis amet delectus maxime, tempora possimus aut laboriosam magni corrupti labore. Doloremque, sit?</p>
+
+                    <a href="javascript:void(0)">Saber más...</a>
+                </div>
+                <div class="col-sm-6 col-md-4 ml-auto">
+                    <div class="widget">
+                        <div class="icon-wrapper">
+                            <i class="ti-calendar"></i>
+                        </div>
+                        <div class="infos-wrapper">
+                            <h4 class="text-primary">30+</h4>
+                            <p>Te ayudamos todos los dias del mes</p>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="icon-wrapper">
+                            <i class="ti-face-smile"></i>
+                        </div>
+                        <div class="infos-wrapper">
+                            <h4 class="text-primary">125+</h4>
+                            <p>Clientes felices</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="widget">
+                        <div class="icon-wrapper">
+                            <i class="ti-star"></i>
+                        </div>
+                        <div class="infos-wrapper">
+                            <h4 class="text-primary">300+</h4>
+                            <p>Capacitaciones exitosas</p>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="icon-wrapper">
+                            <i class="ti-user"></i>
+                        </div>
+                        <div class="infos-wrapper">
+                            <h4 class="text-primary">20+</h4>
+                            <p>Profesionales especializados</p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section pb-0">
+
+        <div class="container">
+            <h6 class="xs-font mb-0">¿Tienes alguna consulta?</h6>
+            <h3 class="section-title mb-5">Contactanos</h3>
+
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-8 col-lg-7">
+
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <input type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="col form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="Your Message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-block" value="Send Message">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 d-none d-md-block order-1">
+                    <ul class="list">
+                        <li class="list-head">
+                            <h6>CONTACT INFO</h6>
+                        </li>
+                        <li class="list-body">
+                            <p class="py-2">Contact us and we'll get back to you within 24 hours.</p>
+                            <p class="py-2"><i class="ti-location-pin"></i> 12345 Fake ST NoWhere AB Country</p>
+                            <p class="py-2"><i class="ti-email"></i>  info@website.com</p>
+                            <p class="py-2"><i class="ti-microphone"></i> (123) 456-7890</p>
+
+                        </li>
+                    </ul> 
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	<!-- core  -->
+    <script src="{% static 'core//vendors/jquery/jquery-3.4.1.js'%}"></script>
+
+    <script src="{% static 'core/vendors/bootstrap/bootstrap.bundle.js' %}"></script>
+
+    <!-- bootstrap 3 affix -->
+	<script src="{% static 'core/vendors/bootstrap/bootstrap.affix.js'%}"></script>
+    
+    <!-- Owl carousel  -->
+    <script src="{% static 'core/vendors/owl-carousel/js/owl.carousel.js' %}"></script>
+
+    <!-- Ollie js -->
+    <script src="{% static 'core/js/Ollie.js' %}"></script>
+
+</body>
+</html>

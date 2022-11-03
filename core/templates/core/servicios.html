@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with Ollie landing page.">
+    <meta name="author" content="Devcrud">
+    <title>Servicios NMA</title>
+    {% load static %}
+    <!-- font icons -->
+    <link rel="stylesheet" href="{% static 'core/vendors/themify-icons/css/themify-icons.css' %}">
+    
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="{% static 'core/vendors/owl-carousel/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'core/vendors/owl-carousel/css/owl.theme.default.css' %}">
+
+    <!-- Bootstrap + Ollie main styles -->
+	<link rel="stylesheet" href="{% static 'core/css/ollie.css' %}">
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <nav id="scrollspy" class="navbar navbar-light bg-light navbar-expand-lg fixed-top" data-spy="affix" data-offset-top="20">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="assets/imgs/brand.svg" alt="" class="brand-img"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:index' %}" class="nav-link">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:servicios' %}" class="nav-link">Servicios</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Sobre Nosotros</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contacto</a>
+                    </li>
+                    {% endif %}
+
+					{% load templatetagname %}
+                    {% if user.is_authenticated %}
+                    {% if request.user|has_group:"Clientes" %} 
+
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:index' %}" class="nav-link">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:servicios' %}" class="nav-link">Servicios</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:solicitar_asesoria' %}">Solicitar Asesoria</a>
+                    </li> 
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contacto</a>
+                    </li>
+
+					{% endif %}
+                    {% endif %}
+
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:index' %}" class="nav-link">Inicio</a>
+                    </li>
+                    {% endif %}
+
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a href="{% url 'aseguradoraNMA:servicios' %}" class="nav-link">Servicios</a>
+                    </li>
+                    {% endif %}
+
+                    <!--<li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:registrar_usuario' %}">Registrar Profesional</a>
+                    </li>-->
+
+                    <!--{% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_usuario' %}">Gestion de Usuarios</a>
+                    </li> 
+                    {% endif %}-->
+
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:listar_capacitacion' %}">Planificar Capacitaciones</a>
+                    </li> 
+                    {% endif %}
+
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_visita' %}">Planificar Visitas</a>
+                    </li> 
+                    {% endif %}
+                    {% if request.user|has_group:"Profesionales" %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_asesoria' %}">Planificar Asesorias</a>
+                    </li> 
+                    {% endif %}
+
+                {% if user.is_authenticated and user.is_staff %}
+
+                <li class="nav-item">
+                    <a href="{% url 'aseguradoraNMA:index' %}" class="nav-link">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'aseguradoraNMA:servicios' %}" class="nav-link">Servicios</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_profesional' %}">Listado de Profesionales</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_usuario' %}">Gestion de Usuarios</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_contrato' %}">Gestion de Contratos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:listar_capacitacion' %}">Planificar Capacitaciones</a>
+                </li> 
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_visita' %}">Planificar Visitas</a>
+                </li> 
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'aseguradoraNMA:mantenedor_asesoria' %}">Planificar Asesorias</a>
+                </li>
+    
+
+                {% endif %}
+
+
+                    {% if user.is_authenticated %}
+                   <li>
+                <a href="#"> Usuario: {{ user.username }}</a>
+                </li>
+                
+                <li>
+                <a class="nav-link btn btn-primary" href="{% url 'aseguradoraNMA:logout' %}">Cerrar Sesion</a>
+                </li>
+                    {% endif %}
+
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item ml-0 ml-lg-4">
+                            <a class="nav-link btn btn-primary" href="{% url 'aseguradoraNMA:login' %}">Iniciar Sesión</a>
+                        </li> 
+                    {% endif %}
+
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item ml-0 ml-lg-4">
+                            <a class="nav-link btn btn-primary" href="{% url 'aseguradoraNMA:registro' %}">Registrarse</a>
+                        </li> 
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<br></br>
+<br></br>
+<br></br>
+
+    <section class="section" id="about">
+
+        <div class="container">
+
+            <div class="row align-items-center mr-auto">
+                <div class="col-md-4">
+                    <h6 class="xs-font mb-0">Manten el ambiente de trabajo seguro.</h6>
+                    <h3 class="section-title">Nuestros Servicios</h3>
+                    <p>Nuestro servicio consiste en todo lo necesario para mantener en regla tu empresa, contamos con profesionales 
+                        especializados los cuales realizan visitas, asesorias, capacitaciones, ademas, un centro de llamados el cual resolvera
+                        todas tus dudas.
+                    </p>
+                    <p>Mensualmente realizamos reportes de los resultados de nuestra gestion realizada para ti, donde tendras en detalle
+                        todos los servicios realizados durante el mes. Este reporte estara siempre disponible para ti, pero solo podras solicitarlo 1 vez al mes,
+                        si deseas una actualizacion se te cobrara de forma extra.
+                    </p>
+
+                    <a href="javascript:void(0)">Valor Mensual del Servicio: $42.990</a>
+                    <br></br>
+                    <a href="{% url 'aseguradoraNMA:registro' %}" class="btn btn-primary btn-rounded">Solicitar Servicios</a>
+                </div>
+                <div class="col-sm-6 col-md-4 ml-auto">
+                    <div class="widget">
+                        <div class="icon-wrapper">
+                            <i class="ti-calendar"></i>
+                        </div>
+                        <div class="infos-wrapper">
+                            <h4 class="text-primary">2 visitas mensuales</h4>
+                            <p>Revision de documentacion,
+                            Condiciones de seguridad, etc.</p>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="icon-wrapper">
+                            <i class="ti-face-smile"></i>
+                        </div>
+                        <div class="infos-wrapper">
+                            <h4 class="text-primary">Capacitaciones de seguridad</h4>
+                            <p>Se deben programar con 15 dias de anterioridad.
+                                Se realizan capacitaciones extra pero se cobran como extra en el mes que se soliciten.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="widget">
+                        <div class="icon-wrapper">
+                            <i class="ti-star"></i>
+                        </div>
+                        <div class="infos-wrapper">
+                            <h4 class="text-primary">10 Asesorias</h4>
+                            <p>Se realizan asesorias en caso de accidentes, fiscalizaciones de las
+                                entidades fiscalizadoras, en la que se incluye visita a terreno, interaccion
+                                con el fiscalizador, gestion de accidentes, propuestas de mejora y verificacion de
+                                implementacion de las mejoras propuestas.
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="icon-wrapper">
+                            <i class="ti-user"></i>
+                        </div>
+                        <div class="infos-wrapper">
+                            <h4 class="text-primary">Centro de Llamados</h4>
+                            <p>Se resuelven dudas de Lunes a Viernes de 9:00 hrs. a 18:00 hrs.</p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </section>
